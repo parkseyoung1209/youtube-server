@@ -1,8 +1,6 @@
 package com.server.youtube.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +36,7 @@ public class Video {
     @Column(name="video_desc")
     private String videoDesc;
 
-    @Column(name="channel_code")
-    private int channelCode;
+    @ManyToOne
+    @JoinColumn(name="channel_code")
+    private Channel channel;
 }
