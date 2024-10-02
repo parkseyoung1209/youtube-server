@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity @DynamicInsert
 public class Video {
     @Id
     @Column(name="video_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int videoCode;
 
     @Column(name="video_url")
