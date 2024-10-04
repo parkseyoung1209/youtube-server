@@ -49,7 +49,7 @@ public class VideoController {
 
         // WHERE video_title LIKE CONCAT('%', keyword, '%')
 
-        if(keyword != null) {
+        if(keyword != null && !keyword.equals("")) {
             // 원하는 조건은 필드값과 같이 결합해서 생성
             BooleanExpression expression = qVideo.videoTitle.like('%'+keyword + '%');
 
@@ -59,11 +59,15 @@ public class VideoController {
         // 정렬 조건 필요시 Sort 객체
         Sort sort = Sort.by("videoDate").descending();
 
-        Pageable pageable = PageRequest.of(page-1, 15, sort);
+        Pageable pageable = PageRequest.of(page-1, 20, sort);
         Page<Video> list = service.viewAll(booleanBuilder, pageable);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(list.getContent());
+    }
+    @GetMapping("/video/{videoCode}")
+    public ResponseEntity viewOne(@PathVariable(name = "videoCode") int videoCode) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.viewOne(videoCode));
     }
 
     // 파일 업로드

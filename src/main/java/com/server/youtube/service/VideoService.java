@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VideoService {
@@ -30,5 +30,10 @@ public class VideoService {
 
     public Channel viewChannel(int code) {
         return channelDAO.findById(code).get();
+    }
+
+    public Video viewOne(int videoCode) {
+        dao.updateCount(videoCode);
+        return dao.findById(videoCode).get();
     }
 }
