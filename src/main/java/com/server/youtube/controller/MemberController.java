@@ -2,6 +2,7 @@ package com.server.youtube.controller;
 
 import com.server.youtube.config.TokenProvider;
 import com.server.youtube.domain.Member;
+import com.server.youtube.domain.MemberDTO;
 import com.server.youtube.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,10 @@ public class MemberController {
         Member member = memberService.login(vo.getId(), vo.getPassword());
         if(member != null) {
             String token = tokenProvider.create(member);
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok(MemberDTO.builder()
+                            .id(member.getId())
+                            .token(token)
+                    .build());
         }
 //        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

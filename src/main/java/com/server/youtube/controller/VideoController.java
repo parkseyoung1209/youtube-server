@@ -67,7 +67,7 @@ public class VideoController {
     }
     @GetMapping("/video/{videoCode}")
     public ResponseEntity viewOne(@PathVariable(name = "videoCode") int videoCode) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.viewOne(videoCode));
+        return ResponseEntity.ok(service.viewOne(videoCode));
     }
 
     // 파일 업로드

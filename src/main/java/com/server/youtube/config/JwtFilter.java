@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -29,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = parseBearerToken(request);
         if(token != null) {
             Member member = tokenProvider.validate(token);
-            AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(member, member.getPassword());
+            AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(member, member.getPassword(), new ArrayList<>());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
             securityContext.setAuthentication(authentication);
